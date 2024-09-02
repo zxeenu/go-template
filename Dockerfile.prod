@@ -1,0 +1,19 @@
+FROM golang:1.23 AS base-builder
+
+# Set up the working directory and add the application source
+WORKDIR /app
+
+# Copy the rest of the application source
+COPY app/ ./
+
+# Run the application in development mode
+RUN go build -o app-bin .
+
+# Production stage
+FROM scratch AS release
+
+# Copy the binary from the builder stage
+COPY --from=base-builder /app/app-bin /usr/local/bin/app/app-bin
+
+# Set the entrypoint to the binary
+ENTRYPOINT ["/usr/local/bin/app/app-bin"]

@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  app_service:
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE}
+    volumes:
+      - ./app:/app
+    env_file:
+      - .env
+    restart: on-failure

@@ -1,0 +1,7 @@
+FROM golang:1.23 AS base-builder
+
+# Set up the working directory and add the application source
+WORKDIR /app
+
+# Run the application in development mode
+CMD ["go", "run", "."]
